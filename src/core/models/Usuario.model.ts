@@ -52,7 +52,7 @@ export class UsuarioModel extends BaseModel {
     formOrder: 3,
     placeholder: 'url-unica-del-usuario',
     helpText: 'URL única para identificar este usuario. Alfanumérico, guiones permitidos.',
-    pattern: '^[a-zA-Z0-9-_]+$'
+    pattern: /^[a-zA-Z0-9-_]+$/
   })
   url_busqueda!: string;
 
@@ -67,7 +67,7 @@ export class UsuarioModel extends BaseModel {
     formOrder: 1,
     placeholder: 'XX:XX:XX:XX:XX:XX',
     helpText: 'Dirección MAC del dispositivo PC',
-    pattern: '^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$'
+    pattern: /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/
   })
   direccion_mac_pc?: string;
 
@@ -82,7 +82,7 @@ export class UsuarioModel extends BaseModel {
     formOrder: 2,
     placeholder: 'XX:XX:XX:XX:XX:XX',
     helpText: 'Dirección MAC del dispositivo móvil',
-    pattern: '^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$'
+    pattern: /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/
   })
   direccion_mac_mobile?: string;
 }

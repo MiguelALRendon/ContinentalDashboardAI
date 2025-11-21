@@ -46,7 +46,7 @@ export class ImagenModel extends BaseModel {
     gridVisible: true,
     gridWidth: 150,
     gridRender: 'image-thumbnail',
-    formVisible: false
+    formVisible: true
   })
   url_archivo?: string;
 }

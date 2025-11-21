@@ -37,7 +37,7 @@ export class ObraModel extends BaseModel {
     formOrder: 2,
     placeholder: 'url-unica-de-la-obra',
     helpText: 'URL única para identificar esta obra. Alfanumérico, guiones permitidos.',
-    pattern: '^[a-zA-Z0-9-_]+$'
+    pattern: /^[a-zA-Z0-9-_]+$/
   })
   url_busqueda!: string;
 

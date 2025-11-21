@@ -38,9 +38,9 @@ export class NoticiaModel extends SeoBaseModel {
     formOrder: 2,
     placeholder: 'url-unica-de-la-noticia',
     helpText: 'URL única para identificar esta noticia. Alfanumérico, guiones permitidos.',
-    pattern: '^[a-zA-Z0-9-_]+$'
+    pattern: /^[a-zA-Z0-9-_]+$/
   })
-  url_busqueda!: string;
+  declare url_busqueda: string;
 
   @Field({
     type: FieldType.Text,

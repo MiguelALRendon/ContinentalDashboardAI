@@ -37,7 +37,7 @@ export class VariableSistemaModel extends BaseModel {
     formOrder: 2,
     placeholder: 'url-unica-de-la-variable',
     helpText: 'URL única para identificar esta variable. Alfanumérico, guiones permitidos.',
-    pattern: '^[a-zA-Z0-9-_]+$'
+    pattern: /^[a-zA-Z0-9-_]+$/
   })
   url_busqueda!: string;
 

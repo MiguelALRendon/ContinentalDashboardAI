@@ -37,7 +37,7 @@ export class ArcoModel extends BaseModel {
     formOrder: 2,
     placeholder: 'url-unica-del-arco',
     helpText: 'URL única para identificar este arco. Alfanumérico, guiones permitidos.',
-    pattern: '^[a-zA-Z0-9-_]+$'
+    pattern: /^[a-zA-Z0-9-_]+$/
   })
   url_busqueda!: string;
 

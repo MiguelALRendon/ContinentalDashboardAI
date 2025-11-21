@@ -38,9 +38,9 @@ export class CapituloModel extends SeoBaseModel {
     formOrder: 2,
     placeholder: 'url-unica-del-capitulo',
     helpText: 'URL única para identificar este capítulo. Alfanumérico, guiones permitidos.',
-    pattern: '^[a-zA-Z0-9-_]+$'
+    pattern: /^[a-zA-Z0-9-_]+$/
   })
-  url_busqueda!: string;
+  declare url_busqueda: string;
 
   @Field({
     type: FieldType.Text,

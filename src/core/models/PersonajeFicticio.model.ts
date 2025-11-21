@@ -37,7 +37,7 @@ export class PersonajeFicticioModel extends BaseModel {
     formOrder: 2,
     placeholder: 'url-unica-del-personaje',
     helpText: 'URL única para identificar este personaje. Alfanumérico, guiones permitidos.',
-    pattern: '^[a-zA-Z0-9-_]+$'
+    pattern: /^[a-zA-Z0-9-_]+$/
   })
   url_busqueda!: string;
 
