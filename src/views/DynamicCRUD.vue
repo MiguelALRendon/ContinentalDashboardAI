@@ -4,7 +4,9 @@
       <h2>{{ modelClass.modelName }}</h2>
     </div>
 
+    <!-- Vista de Tabla (por defecto) -->
     <DynamicDataGrid
+      v-if="viewType === ViewType.Table"
       :model-class="modelClass"
       :items="items"
       :loading="loading"
@@ -17,6 +19,24 @@
       @refresh="refresh"
       @search="handleSearch"
       @sort="handleSort"
+      @page-change="changePage"
+      @page-size-change="changePageSize"
+    />
+
+    <!-- Vista de Tarjetas -->
+    <CardGridView
+      v-else-if="viewType === ViewType.CardGrid"
+      :model-class="modelClass"
+      :items="items"
+      :loading="loading"
+      :pagination="pagination"
+      @add="openCreateModal"
+      @edit="openEditModal"
+      @view="openViewModal"
+      @delete="handleDelete"
+      @batch-delete="handleBatchDelete"
+      @refresh="refresh"
+      @search="handleSearch"
       @page-change="changePage"
       @page-size-change="changePageSize"
     />
@@ -47,7 +67,9 @@ import { ref, computed, onMounted, watch } from 'vue';
 import { ElMessage, ElMessageBox } from 'element-plus';
 import { useCRUD } from '@/composables';
 import type { BaseModel } from '@/core/models/base';
+import { ViewType } from '@/core/types';
 import DynamicDataGrid from '@/components/base/DynamicDataGrid.vue';
+import CardGridView from '@/components/base/CardGridView.vue';
 import DynamicForm from '@/components/base/DynamicForm.vue';
 
 interface Props {
@@ -74,6 +96,8 @@ const {
   changePageSize,
   refresh
 } = useCRUD(props.modelClass);
+
+const viewType = computed(() => props.modelClass.viewType || ViewType.Table);
 
 const formTitle = computed(() => {
   const modelName = props.modelClass.modelName;

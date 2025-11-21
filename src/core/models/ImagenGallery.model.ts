@@ -1,14 +1,15 @@
 import { Field, BaseModel } from './base';
-import { FieldType } from '@/core/types';
+import { FieldType, ViewType } from '@/core/types';
 
 /**
- * Modelo Imagen - Representa las imágenes subidas al sistema
+ * Modelo ImagenGallery - Galería de imágenes con vista de tarjetas
  */
-export class ImagenModel extends BaseModel {
-  static override modelName = 'Imagen';
+export class ImagenGalleryModel extends BaseModel {
+  static override modelName = 'Galería de Imágenes';
   static override endpoint = '/imagenes';
   static override displayField = 'nombre';
   static override icon = 'Picture';
+  static override viewType = ViewType.CardGrid;
 
   @Field({
     type: FieldType.String,

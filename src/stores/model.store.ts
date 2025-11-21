@@ -29,7 +29,7 @@ export const useModelStore = defineStore('model', () => {
       name: model.modelName,
       label: model.modelName,
       icon: model.icon || 'Document',
-      path: `/${model.modelName.toLowerCase()}`
+      path: `/${model.modelName.toLowerCase().replace(/\s+/g, '-')}`
     }));
   });
 

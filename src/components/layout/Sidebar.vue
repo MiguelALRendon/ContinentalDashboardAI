@@ -42,7 +42,8 @@ import {
   Odometer, 
   Document, 
   List,
-  Notification
+  Notification,
+  Picture
 } from '@element-plus/icons-vue';
 import { useAppStore, useModelStore } from '@/stores';
 
@@ -60,7 +61,8 @@ const iconMap: Record<string, any> = {
   Document,
   List,
   Notification,
-  Odometer
+  Odometer,
+  Picture
 };
 
 const getIconComponent = (iconName: string) => {

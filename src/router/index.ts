@@ -43,7 +43,7 @@ function generateDynamicRoutes(): RouteRecordRaw[] {
 
   models.forEach(modelClass => {
     dynamicRoutes.push({
-      path: `/${modelClass.modelName.toLowerCase()}`,
+      path: `/${modelClass.modelName.toLowerCase().replace(/\s+/g, '-')}`,
       name: modelClass.modelName,
       component: () => import('@/views/DynamicCRUD.vue'),
       props: { modelClass },

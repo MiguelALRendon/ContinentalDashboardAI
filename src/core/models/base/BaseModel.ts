@@ -1,4 +1,5 @@
 import type { FieldOptions, FieldMetadata } from '@/core/types';
+import { ViewType } from '@/core/types';
 
 /**
  * Almacena los metadatos de los campos de cada modelo
@@ -48,6 +49,7 @@ export abstract class BaseModel {
   static displayField = 'id';
   static icon = 'Document';
   static hasSeo = false;
+  static viewType: ViewType = ViewType.Table;
 
   /**
    * Obtiene todos los campos definidos en el modelo

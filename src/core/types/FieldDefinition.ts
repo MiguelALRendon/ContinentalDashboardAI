@@ -33,6 +33,9 @@ export interface FieldOptions {
   // Campo no persistente (solo para visualización, no se envía al backend)
   persist?: boolean;
   
+  // Campo por defecto para mostrar en vistas alternativas (ej. tarjetas)
+  isDefault?: boolean;
+  
   // Configuración de Grid
   gridVisible?: boolean;
   gridWidth?: number;

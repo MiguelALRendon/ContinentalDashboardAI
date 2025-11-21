@@ -8,6 +8,7 @@ import { PersonajeFicticioModel } from './PersonajeFicticio.model';
 import { UsuarioModel } from './Usuario.model';
 import { VariableSistemaModel } from './VariableSistema.model';
 import { ImagenModel } from './Imagen.model';
+import { ImagenGalleryModel } from './ImagenGallery.model';
 
 /**
  * Registro central de todos los modelos del sistema
@@ -20,7 +21,8 @@ export const modelRegistry = new Map<string, typeof BaseModel>([
   ['PersonajeFicticio', PersonajeFicticioModel],
   ['Usuario', UsuarioModel],
   ['VariableSistema', VariableSistemaModel],
-  ['Imagen', ImagenModel]
+  ['Imagen', ImagenModel],
+  ['Galería de Imágenes', ImagenGalleryModel]
 ]);
 
 /**
@@ -59,5 +61,5 @@ export function getModelConfig(modelClass: typeof BaseModel): ModelConfig {
 }
 
 // Exportar modelos
-export { ObraModel, CapituloModel, ArcoModel, NoticiaModel, PersonajeFicticioModel, UsuarioModel, VariableSistemaModel, ImagenModel };
+export { ObraModel, CapituloModel, ArcoModel, NoticiaModel, PersonajeFicticioModel, UsuarioModel, VariableSistemaModel, ImagenModel, ImagenGalleryModel };
 export * from './base';
