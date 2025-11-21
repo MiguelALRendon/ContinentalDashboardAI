@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
+import apiClient from '@/utils/apiClient';
 
 /**
  * Información del usuario
@@ -7,8 +8,26 @@ import { ref, computed } from 'vue';
 export interface User {
   id: string;
   nombre: string;
-  email?: string;
-  role?: string;
+  url_busqueda: string;
+  created_at?: string;
+  updated_at?: string;
+  estatus?: number;
+}
+
+/**
+ * Credenciales de login según API
+ */
+export interface LoginCredentials {
+  nombre: string;
+  contraseña: string;
+}
+
+/**
+ * Respuesta del login según API
+ */
+interface LoginResponse {
+  token: string;
+  url_busqueda: string;
 }
 
 /**
@@ -20,29 +39,57 @@ export const useUserStore = defineStore('user', () => {
   const isAuthenticated = computed(() => !!token.value);
 
   /**
-   * Inicia sesión
+   * Inicia sesión con la API de Continental
    */
-  const login = async (credentials: { email: string; password: string }) => {
+  const login = async (credentials: LoginCredentials) => {
     try {
-      // TODO: Implementar llamada al API de login
-      // const response = await apiClient.post('/auth/login', credentials);
+      console.log('[LOGIN] Iniciando login para:', credentials.nombre);
       
-      // Simulación temporal
-      token.value = 'fake-token';
+      const response = await apiClient.post<LoginResponse>('/usuarios/login', {
+        nombre: credentials.nombre,
+        contraseña: credentials.contraseña
+      });
+      
+      console.log('[LOGIN] Respuesta del servidor:', response.data);
+      
+      const { token: authToken, url_busqueda } = response.data;
+      
+      if (!authToken || !url_busqueda) {
+        throw new Error('No se recibió token o url_busqueda del servidor');
+      }
+      
+      // Guardar token y url_busqueda
+      token.value = authToken;
+      localStorage.setItem('auth_token', authToken);
+      localStorage.setItem('url_busqueda', url_busqueda);
+      console.log('[LOGIN] Token y url_busqueda guardados exitosamente');
+      
+      // Crear usuario básico con la información que tenemos
       user.value = {
-        id: '1',
-        nombre: 'Admin',
-        email: credentials.email,
-        role: 'admin'
+        id: '',
+        nombre: credentials.nombre,
+        url_busqueda
       };
-      
-      localStorage.setItem('auth_token', token.value);
       localStorage.setItem('user', JSON.stringify(user.value));
+      console.log('[LOGIN] Usuario guardado:', user.value);
       
+      console.log('[LOGIN] Login exitoso');
       return true;
-    } catch (error) {
-      console.error('Login error:', error);
-      return false;
+    } catch (error: any) {
+      console.error('[LOGIN ERROR] Tipo:', error.constructor.name);
+      console.error('[LOGIN ERROR] Mensaje:', error.message);
+      console.error('[LOGIN ERROR] Response:', error.response);
+      console.error('[LOGIN ERROR] Status:', error.response?.status);
+      console.error('[LOGIN ERROR] Data:', error.response?.data);
+      
+      // Limpiar cualquier dato previo
+      user.value = null;
+      token.value = null;
+      localStorage.removeItem('auth_token');
+      localStorage.removeItem('url_busqueda');
+      localStorage.removeItem('user');
+      
+      throw error;
     }
   };
 
@@ -50,35 +97,36 @@ export const useUserStore = defineStore('user', () => {
    * Cierra sesión
    */
   const logout = () => {
+    console.log('[LOGOUT] Cerrando sesión');
     user.value = null;
     token.value = null;
     localStorage.removeItem('auth_token');
+    localStorage.removeItem('url_busqueda');
     localStorage.removeItem('user');
+    console.log('[LOGOUT] Sesión cerrada');
   };
 
   /**
    * Restaura la sesión desde localStorage
    */
   const restoreSession = () => {
+    console.log('[SESSION] Restaurando sesión desde localStorage');
     const savedToken = localStorage.getItem('auth_token');
+    const savedUrlBusqueda = localStorage.getItem('url_busqueda');
     const savedUser = localStorage.getItem('user');
     
-    if (savedToken && savedUser) {
+    if (savedToken && savedUrlBusqueda && savedUser) {
       token.value = savedToken;
       try {
         user.value = JSON.parse(savedUser);
+        console.log('[SESSION] Sesión restaurada:', user.value);
       } catch (e) {
-        console.error('Error parsing saved user:', e);
+        console.error('[SESSION] Error parsing saved user:', e);
         logout();
       }
+    } else {
+      console.log('[SESSION] No hay sesión guardada');
     }
-  };
-
-  /**
-   * Verifica si el usuario tiene un rol específico
-   */
-  const hasRole = (role: string): boolean => {
-    return user.value?.role === role;
   };
 
   return {
@@ -87,7 +135,6 @@ export const useUserStore = defineStore('user', () => {
     isAuthenticated,
     login,
     logout,
-    restoreSession,
-    hasRole
+    restoreSession
   };
 });

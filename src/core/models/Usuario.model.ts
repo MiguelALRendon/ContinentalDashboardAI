@@ -27,13 +27,27 @@ export class UsuarioModel extends BaseModel {
 
   @Field({
     type: FieldType.String,
+    label: 'Contraseña',
+    required: false,
+    maxLength: 255,
+    gridVisible: false,
+    formGroup: 'general',
+    formOrder: 2,
+    placeholder: 'Contraseña del usuario',
+    helpText: 'Mínimo 6 caracteres. Requerido al crear. Dejar vacío para mantener la contraseña actual al editar.',
+    inputType: 'password'
+  })
+  contraseña?: string;
+
+  @Field({
+    type: FieldType.String,
     label: 'Dirección MAC PC',
     maxLength: 17,
     gridVisible: true,
     gridWidth: 150,
     gridFilterable: true,
     formGroup: 'general',
-    formOrder: 2,
+    formOrder: 3,
     placeholder: 'XX:XX:XX:XX:XX:XX',
     helpText: 'Dirección MAC del dispositivo PC'
   })
@@ -47,7 +61,7 @@ export class UsuarioModel extends BaseModel {
     gridWidth: 150,
     gridFilterable: true,
     formGroup: 'general',
-    formOrder: 3,
+    formOrder: 4,
     placeholder: 'XX:XX:XX:XX:XX:XX',
     helpText: 'Dirección MAC del dispositivo móvil'
   })

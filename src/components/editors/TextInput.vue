@@ -1,10 +1,12 @@
 <template>
   <el-input
     :model-value="modelValue"
+    :type="fieldConfig?.inputType || 'text'"
     :disabled="disabled"
     :placeholder="fieldConfig?.placeholder"
     :maxlength="fieldConfig?.maxLength"
     :show-word-limit="!!fieldConfig?.maxLength"
+    :show-password="fieldConfig?.inputType === 'password'"
     clearable
     @update:model-value="emit('update:modelValue', $event)"
   />

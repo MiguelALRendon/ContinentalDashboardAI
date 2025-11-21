@@ -45,7 +45,8 @@ export class FormGenerator {
         validation: this.generateFieldValidation(fieldConfig),
         order: fieldConfig.formOrder || 999,
         placeholder: fieldConfig.placeholder,
-        helpText: fieldConfig.helpText
+        helpText: fieldConfig.helpText,
+        inputType: fieldConfig.inputType
       };
 
       // Configuración especial para ForeignKey

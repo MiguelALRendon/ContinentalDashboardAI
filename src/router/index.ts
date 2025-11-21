@@ -92,17 +92,25 @@ const router = createRouter({
 /**
  * Guard de navegación para autenticación
  */
-router.beforeEach((to, _from, next) => {
+router.beforeEach((to, from, next) => {
   const userStore = useUserStore();
   const requiresAuth = to.meta.requiresAuth !== false;
 
+  console.log('[ROUTER] Navegando de', from.path, 'a', to.path);
+  console.log('[ROUTER] Usuario autenticado:', userStore.isAuthenticated);
+  console.log('[ROUTER] Requiere auth:', requiresAuth);
+
   if (requiresAuth && !userStore.isAuthenticated) {
     // Redirigir a login si la ruta requiere autenticación
+    console.log('[ROUTER] Redirigiendo a login (no autenticado)');
     next({ name: 'Login', query: { redirect: to.fullPath } });
-  } else if (to.name === 'Login' && userStore.isAuthenticated) {
-    // Si ya está autenticado y trata de ir a login, redirigir al dashboard
+  } else if (to.name === 'Login' && userStore.isAuthenticated && from.name !== 'Login') {
+    // Si ya está autenticado y trata de ir a login desde otra página, redirigir al dashboard
+    // PERO permitir quedarse en login si hay un error de login (from.name === 'Login')
+    console.log('[ROUTER] Redirigiendo a dashboard (ya autenticado)');
     next({ name: 'Dashboard' });
   } else {
+    console.log('[ROUTER] Permitiendo navegación');
     next();
   }
 });

@@ -50,6 +50,7 @@ export interface FormFieldConfig {
   options?: Array<{ label: string; value: any }>;
   placeholder?: string;
   helpText?: string;
+  inputType?: 'text' | 'password' | 'email' | 'number' | 'tel' | 'url';
 }
 
 /**

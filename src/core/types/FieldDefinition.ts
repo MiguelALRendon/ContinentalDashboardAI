@@ -44,6 +44,7 @@ export interface FieldOptions {
   editor?: string;
   placeholder?: string;
   helpText?: string;
+  inputType?: 'text' | 'password' | 'email' | 'number' | 'tel' | 'url';
   
   // Foreign Key
   relatedModel?: string;
