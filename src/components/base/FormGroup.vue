@@ -37,6 +37,7 @@ import Switch from '../editors/Switch.vue';
 import SelectInput from '../editors/SelectInput.vue';
 import RichTextEditor from '../editors/RichTextEditor.vue';
 import ImageUpload from '../editors/ImageUpload.vue';
+import FileUpload from '../editors/FileUpload.vue';
 import TagsInput from '../editors/TagsInput.vue';
 
 interface Props {
@@ -65,6 +66,8 @@ const editorComponents: Record<string, any> = {
   DatePicker: markRaw(TextInput), // Placeholder
   DateTimePicker: markRaw(TextInput), // Placeholder
   ImageUploader: markRaw(ImageUpload),
+  FileUploader: markRaw(FileUpload),
+  FileUpload: markRaw(FileUpload),
   TagsInput: markRaw(TagsInput),
   RichText: markRaw(RichTextEditor)
 };

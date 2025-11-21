@@ -7,6 +7,7 @@ import { NoticiaModel } from './Noticia.model';
 import { PersonajeFicticioModel } from './PersonajeFicticio.model';
 import { UsuarioModel } from './Usuario.model';
 import { VariableSistemaModel } from './VariableSistema.model';
+import { ImagenModel } from './Imagen.model';
 
 /**
  * Registro central de todos los modelos del sistema
@@ -18,7 +19,8 @@ export const modelRegistry = new Map<string, typeof BaseModel>([
   ['Noticia', NoticiaModel],
   ['PersonajeFicticio', PersonajeFicticioModel],
   ['Usuario', UsuarioModel],
-  ['VariableSistema', VariableSistemaModel]
+  ['VariableSistema', VariableSistemaModel],
+  ['Imagen', ImagenModel]
 ]);
 
 /**
@@ -57,5 +59,5 @@ export function getModelConfig(modelClass: typeof BaseModel): ModelConfig {
 }
 
 // Exportar modelos
-export { ObraModel, CapituloModel, ArcoModel, NoticiaModel, PersonajeFicticioModel, UsuarioModel, VariableSistemaModel };
+export { ObraModel, CapituloModel, ArcoModel, NoticiaModel, PersonajeFicticioModel, UsuarioModel, VariableSistemaModel, ImagenModel };
 export * from './base';

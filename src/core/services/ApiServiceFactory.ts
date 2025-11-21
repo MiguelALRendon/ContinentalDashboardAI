@@ -1,4 +1,5 @@
 import { BaseApiService } from './BaseApiService';
+import { ImagenService } from './ImagenService';
 import type { BaseModel } from '@/core/models/base';
 
 /**
@@ -16,10 +17,18 @@ export class ApiServiceFactory {
     const serviceName = modelClass.modelName;
     
     if (!this.services.has(serviceName)) {
-      this.services.set(
-        serviceName,
-        new BaseApiService<T>(modelClass.endpoint)
-      );
+      // Usar servicios especializados cuando existan
+      let service: BaseApiService<any>;
+      
+      switch (serviceName) {
+        case 'Imagen':
+          service = new ImagenService();
+          break;
+        default:
+          service = new BaseApiService<T>(modelClass.endpoint);
+      }
+      
+      this.services.set(serviceName, service);
     }
     
     return this.services.get(serviceName)!;

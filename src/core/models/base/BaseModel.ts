@@ -99,7 +99,7 @@ export abstract class BaseModel {
 
   /**
    * Prepara los datos para enviar al backend
-   * Excluye campos auto-gestionados y mantiene ForeignKeys tal cual
+   * Excluye campos auto-gestionados, no persistentes y mantiene ForeignKeys tal cual
    */
   static prepareForBackend(data: Record<string, any>): Record<string, any> {
     const prepared: Record<string, any> = {};
@@ -107,9 +107,18 @@ export abstract class BaseModel {
     // Campos que no deben enviarse al backend
     const excludedFields = ['id', 'created_at', 'updated_at', 'url_busqueda'];
     
+    // Obtener metadatos de campos para verificar persist
+    const fields = this.getFields();
+    
     for (const [key, value] of Object.entries(data)) {
       // Excluir campos auto-gestionados
       if (excludedFields.includes(key)) {
+        continue;
+      }
+      
+      // Excluir campos no persistentes (persist: false)
+      const fieldMetadata = fields.get(key);
+      if (fieldMetadata && fieldMetadata.persist === false) {
         continue;
       }
       

@@ -30,6 +30,9 @@ export interface FieldOptions {
   max?: number;
   pattern?: RegExp;
   
+  // Campo no persistente (solo para visualización, no se envía al backend)
+  persist?: boolean;
+  
   // Configuración de Grid
   gridVisible?: boolean;
   gridWidth?: number;
