@@ -26,6 +26,22 @@ export class PersonajeFicticioModel extends BaseModel {
   nombre!: string;
 
   @Field({
+    type: FieldType.String,
+    label: 'URL de Búsqueda',
+    required: true,
+    maxLength: 255,
+    gridVisible: true,
+    gridWidth: 200,
+    gridFilterable: true,
+    formGroup: 'general',
+    formOrder: 2,
+    placeholder: 'url-unica-del-personaje',
+    helpText: 'URL única para identificar este personaje. Alfanumérico, guiones permitidos.',
+    pattern: '^[a-zA-Z0-9-_]+$'
+  })
+  url_busqueda!: string;
+
+  @Field({
     type: FieldType.Image,
     label: 'Foto de Perfil',
     gridVisible: true,
@@ -33,6 +49,7 @@ export class PersonajeFicticioModel extends BaseModel {
     gridRender: 'image-thumbnail',
     formGroup: 'media',
     formOrder: 1,
+    editor: 'ImageUploader',
     helpText: 'Imagen de perfil del personaje'
   })
   url_foto_perfil?: string;
@@ -43,7 +60,7 @@ export class PersonajeFicticioModel extends BaseModel {
     gridVisible: true,
     gridWidth: 350,
     formGroup: 'general',
-    formOrder: 2,
+    formOrder: 3,
     editor: 'TextArea',
     placeholder: 'Descripción del personaje'
   })

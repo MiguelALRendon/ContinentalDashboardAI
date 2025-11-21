@@ -21,8 +21,8 @@ export class FormGenerator {
         continue;
       }
       
-      // Excluir campos base que se manejan automáticamente
-      if (['id', 'created_at', 'updated_at', 'url_busqueda'].includes(fieldName)) {
+      // Excluir solo campos base auto-gestionados
+      if (['id', 'created_at', 'updated_at', 'estatus'].includes(fieldName)) {
         continue;
       }
 
@@ -182,6 +182,7 @@ export class FormGenerator {
       'media': 'Multimedia',
       'contenido': 'Contenido',
       'relaciones': 'Relaciones',
+      'dispositivos': 'Dispositivos',
       'seo': 'SEO y Metadatos'
     };
 

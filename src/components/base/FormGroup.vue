@@ -36,6 +36,8 @@ import NumberInput from '../editors/NumberInput.vue';
 import Switch from '../editors/Switch.vue';
 import SelectInput from '../editors/SelectInput.vue';
 import RichTextEditor from '../editors/RichTextEditor.vue';
+import ImageUpload from '../editors/ImageUpload.vue';
+import TagsInput from '../editors/TagsInput.vue';
 
 interface Props {
   group: FormGroupConfig;
@@ -62,7 +64,8 @@ const editorComponents: Record<string, any> = {
   URLInput: markRaw(TextInput),
   DatePicker: markRaw(TextInput), // Placeholder
   DateTimePicker: markRaw(TextInput), // Placeholder
-  ImageUploader: markRaw(TextInput), // Placeholder
+  ImageUploader: markRaw(ImageUpload),
+  TagsInput: markRaw(TagsInput),
   RichText: markRaw(RichTextEditor)
 };
 

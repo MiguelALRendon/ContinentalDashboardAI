@@ -44,7 +44,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, watch } from 'vue';
-import { ElMessage } from 'element-plus';
+import { ElMessage, ElMessageBox } from 'element-plus';
 import { useCRUD } from '@/composables';
 import type { BaseModel } from '@/core/models/base';
 import DynamicDataGrid from '@/components/base/DynamicDataGrid.vue';
@@ -118,19 +118,53 @@ const handleFormSubmit = async (data: any) => {
 
 const handleDelete = async (item: any) => {
   try {
+    const displayField = props.modelClass.displayField || 'id';
+    const displayValue = item[displayField] || item.id;
+    
+    await ElMessageBox.confirm(
+      `¿Está seguro de eliminar el registro "${displayValue}"?`,
+      'Confirmar Eliminación',
+      {
+        confirmButtonText: 'Eliminar',
+        cancelButtonText: 'Cancelar',
+        type: 'warning',
+        confirmButtonClass: 'el-button--danger'
+      }
+    );
+    
     await remove(item.id);
     ElMessage.success('Registro eliminado exitosamente');
   } catch (error: any) {
+    if (error === 'cancel') {
+      // Usuario canceló, no mostrar error
+      return;
+    }
     ElMessage.error(error.message || 'Error al eliminar el registro');
   }
 };
 
 const handleBatchDelete = async (items: any[]) => {
   try {
+    await ElMessageBox.confirm(
+      `¿Está seguro de eliminar ${items.length} registro(s) seleccionado(s)? Esta acción no se puede deshacer.`,
+      'Confirmar Eliminación Múltiple',
+      {
+        confirmButtonText: 'Eliminar Todo',
+        cancelButtonText: 'Cancelar',
+        type: 'warning',
+        confirmButtonClass: 'el-button--danger',
+        distinguishCancelAndClose: true
+      }
+    );
+    
     const ids = items.map(item => item.id);
     await batchRemove(ids);
     ElMessage.success(`${ids.length} registros eliminados exitosamente`);
   } catch (error: any) {
+    if (error === 'cancel' || error === 'close') {
+      // Usuario canceló, no mostrar error
+      return;
+    }
     ElMessage.error(error.message || 'Error al eliminar los registros');
   }
 };

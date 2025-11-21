@@ -26,13 +26,29 @@ export class VariableSistemaModel extends BaseModel {
   nombre!: string;
 
   @Field({
+    type: FieldType.String,
+    label: 'URL de Búsqueda',
+    required: true,
+    maxLength: 255,
+    gridVisible: true,
+    gridWidth: 200,
+    gridFilterable: true,
+    formGroup: 'general',
+    formOrder: 2,
+    placeholder: 'url-unica-de-la-variable',
+    helpText: 'URL única para identificar esta variable. Alfanumérico, guiones permitidos.',
+    pattern: '^[a-zA-Z0-9-_]+$'
+  })
+  url_busqueda!: string;
+
+  @Field({
     type: FieldType.Text,
     label: 'Valor',
     required: true,
     gridVisible: true,
     gridWidth: 350,
     formGroup: 'general',
-    formOrder: 2,
+    formOrder: 3,
     editor: 'TextArea',
     placeholder: 'Valor de la variable'
   })

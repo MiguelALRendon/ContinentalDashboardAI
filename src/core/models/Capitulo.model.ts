@@ -27,11 +27,27 @@ export class CapituloModel extends SeoBaseModel {
   titulo!: string;
 
   @Field({
+    type: FieldType.String,
+    label: 'URL de Búsqueda',
+    required: true,
+    maxLength: 255,
+    gridVisible: true,
+    gridWidth: 200,
+    gridFilterable: true,
+    formGroup: 'general',
+    formOrder: 2,
+    placeholder: 'url-unica-del-capitulo',
+    helpText: 'URL única para identificar este capítulo. Alfanumérico, guiones permitidos.',
+    pattern: '^[a-zA-Z0-9-_]+$'
+  })
+  url_busqueda!: string;
+
+  @Field({
     type: FieldType.Text,
     label: 'Descripción Larga',
     gridVisible: false,
     formGroup: 'general',
-    formOrder: 2,
+    formOrder: 3,
     editor: 'TextArea',
     placeholder: 'Descripción detallada del capítulo'
   })
@@ -44,7 +60,7 @@ export class CapituloModel extends SeoBaseModel {
     gridVisible: true,
     gridWidth: 300,
     formGroup: 'general',
-    formOrder: 3,
+    formOrder: 4,
     placeholder: 'Resumen breve del capítulo'
   })
   descripcion_corta?: string;
@@ -57,6 +73,7 @@ export class CapituloModel extends SeoBaseModel {
     gridRender: 'image-thumbnail',
     formGroup: 'media',
     formOrder: 1,
+    editor: 'ImageUploader',
     helpText: 'Imagen de portada del capítulo'
   })
   url_portada?: string;
@@ -91,7 +108,7 @@ export class CapituloModel extends SeoBaseModel {
     gridWidth: 120,
     gridSortable: true,
     formGroup: 'general',
-    formOrder: 4,
+    formOrder: 5,
     helpText: 'Número secuencial del capítulo'
   })
   numero_capitulo!: number;

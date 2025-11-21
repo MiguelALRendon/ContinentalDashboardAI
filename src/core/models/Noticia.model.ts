@@ -27,11 +27,27 @@ export class NoticiaModel extends SeoBaseModel {
   titulo!: string;
 
   @Field({
+    type: FieldType.String,
+    label: 'URL de Búsqueda',
+    required: true,
+    maxLength: 255,
+    gridVisible: true,
+    gridWidth: 200,
+    gridFilterable: true,
+    formGroup: 'general',
+    formOrder: 2,
+    placeholder: 'url-unica-de-la-noticia',
+    helpText: 'URL única para identificar esta noticia. Alfanumérico, guiones permitidos.',
+    pattern: '^[a-zA-Z0-9-_]+$'
+  })
+  url_busqueda!: string;
+
+  @Field({
     type: FieldType.Text,
     label: 'Descripción Larga',
     gridVisible: false,
     formGroup: 'general',
-    formOrder: 2,
+    formOrder: 3,
     editor: 'TextArea',
     placeholder: 'Descripción detallada de la noticia'
   })
@@ -44,7 +60,7 @@ export class NoticiaModel extends SeoBaseModel {
     gridVisible: true,
     gridWidth: 300,
     formGroup: 'general',
-    formOrder: 3,
+    formOrder: 4,
     placeholder: 'Resumen breve de la noticia'
   })
   descripcion_corta?: string;
@@ -57,6 +73,7 @@ export class NoticiaModel extends SeoBaseModel {
     gridRender: 'image-thumbnail',
     formGroup: 'media',
     formOrder: 1,
+    editor: 'ImageUploader',
     helpText: 'Imagen de portada de la noticia'
   })
   url_portada?: string;
@@ -75,15 +92,15 @@ export class NoticiaModel extends SeoBaseModel {
   @Field({
     type: FieldType.ForeignKey,
     label: 'Autor',
-    relatedModel: 'Usuario',
+    relatedModel: 'PersonajeFicticio',
     relatedField: 'nombre',
     required: true,
     gridVisible: true,
     gridWidth: 150,
     gridFilterable: true,
     formGroup: 'general',
-    formOrder: 4,
-    helpText: 'Autor de la noticia'
+    formOrder: 5,
+    helpText: 'Autor de la noticia (Personaje Ficticio)'
   })
   autor_id!: string;
 }

@@ -45,6 +45,7 @@ export abstract class SeoBaseModel extends BaseModel {
     maxLength: 255,
     formGroup: 'seo',
     formOrder: 4,
+    editor: 'TagsInput',
     helpText: 'Palabras clave separadas por comas'
   })
   keywords?: string;
@@ -101,6 +102,7 @@ export abstract class SeoBaseModel extends BaseModel {
     label: 'OG Image',
     formGroup: 'seo',
     formOrder: 10,
+    editor: 'ImageUploader',
     helpText: 'Imagen para compartir en redes sociales'
   })
   og_image?: string;
@@ -150,6 +152,7 @@ export abstract class SeoBaseModel extends BaseModel {
     maxLength: 500,
     formGroup: 'seo',
     formOrder: 15,
+    editor: 'TagsInput',
     helpText: 'Etiquetas separadas por comas'
   })
   tags?: string;

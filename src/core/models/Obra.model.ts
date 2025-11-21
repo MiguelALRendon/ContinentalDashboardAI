@@ -26,13 +26,29 @@ export class ObraModel extends BaseModel {
   nombre!: string;
 
   @Field({
+    type: FieldType.String,
+    label: 'URL de Búsqueda',
+    required: true,
+    maxLength: 255,
+    gridVisible: true,
+    gridWidth: 200,
+    gridFilterable: true,
+    formGroup: 'general',
+    formOrder: 2,
+    placeholder: 'url-unica-de-la-obra',
+    helpText: 'URL única para identificar esta obra. Alfanumérico, guiones permitidos.',
+    pattern: '^[a-zA-Z0-9-_]+$'
+  })
+  url_busqueda!: string;
+
+  @Field({
     type: FieldType.Text,
     label: 'Descripción',
     required: false,
     gridVisible: true,
     gridWidth: 350,
     formGroup: 'general',
-    formOrder: 2,
+    formOrder: 3,
     editor: 'TextArea',
     placeholder: 'Descripción de la obra'
   })
@@ -46,6 +62,7 @@ export class ObraModel extends BaseModel {
     gridRender: 'image-thumbnail',
     formGroup: 'media',
     formOrder: 1,
+    editor: 'ImageUploader',
     helpText: 'Imagen de portada de la obra'
   })
   url_portada?: string;
@@ -57,7 +74,7 @@ export class ObraModel extends BaseModel {
     gridWidth: 80,
     gridSortable: true,
     formGroup: 'general',
-    formOrder: 3,
+    formOrder: 4,
     min: 0,
     helpText: 'Orden de visualización'
   })
